@@ -1,0 +1,4 @@
+class ApiManager {
+  static const String token =
+      'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMjhiMDllMzVmMzNjYzZhNTY5NTI3MjJkMTdlNjhmOSIsIm5iZiI6MTcwOTY0NTYyMy41MTEwMDAyLCJzdWIiOiI2NWU3MWYzNzU2ODQ2MzAxNDlhOGQxZGQiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.6KJWF5uu9N3c0QrKZT7W35xvO29Qjsq041sAWWwKk_k';
+}
