@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movies/api/model/popular_response/Movies.dart';
+import 'package:movies/api/model/Movies.dart';
 
-class TopSideMoviesStyle extends StatelessWidget {
+class TopSideMoviesWidget extends StatelessWidget {
   Movies movies;
-  int index;
 
-  TopSideMoviesStyle({required this.movies, required this.index});
+  TopSideMoviesWidget({required this.movies});
 
   @override
   Widget build(BuildContext context) {
@@ -59,15 +58,37 @@ class TopSideMoviesStyle extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Text(
-                        movies.releaseDate ?? "",
-                        style: GoogleFonts.inter(
-                          textStyle: TextStyle(
-                            color: Color(0xffB5B4B4),
-                            fontWeight: FontWeight.w400,
-                            fontSize: 10,
+                      Row(
+                        spacing: 10,
+                        children: [
+                          Text(
+                            "${movies.releaseDate}",
+                            style: GoogleFonts.inter(
+                              textStyle: TextStyle(
+                                color: Color(0xffB5B4B4),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 10,
+                              ),
+                            ),
                           ),
-                        ),
+                          Row(
+                            spacing: 5,
+                            children: [
+                              Image.asset(
+                                'assets/images/star-2.png', width: 10,),
+                              Text(
+                                "${movies.voteAverage}",
+                                style: GoogleFonts.inter(
+                                  textStyle: TextStyle(
+                                    color: Color(0xffB5B4B4),
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ],
                   ),

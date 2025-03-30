@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movies/ui/widget/watch_list_style/Watch_List_Style.dart';
 
 class WatchListFragment extends StatelessWidget {
   @override
@@ -24,7 +23,7 @@ class WatchListFragment extends StatelessWidget {
                 ),
               ),
             ),
-            WatchListStyle(),
+            Container(),
           ],
         ),
       ),

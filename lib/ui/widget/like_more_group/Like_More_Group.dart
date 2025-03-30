@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movies/api/model/more_like_this_section/MoreLikeThisSection.dart';
-import 'package:movies/api/model/popular_response/Movies.dart';
-import 'package:movies/ui/widget/like_more_style/Like_More_Style.dart';
-import 'package:movies/ui/widget/movies_style/Movies_Style.dart';
+import 'package:movies/api/model/Movies.dart';
+import 'package:movies/ui/widget/movies_widget/Movies_Style.dart';
 
 class LikeMoreGroup extends StatelessWidget {
   String groupName;
-  List<MoreLikeThisSection> moreLikeThisSection;
+  List<Movies> moreLikeThisSection;
 
   LikeMoreGroup({required this.groupName, required this.moreLikeThisSection});
 
@@ -39,8 +37,8 @@ class LikeMoreGroup extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: moreLikeThisSection.length,
               itemBuilder: (context, index) {
-                return LikeMoreStyle(
-                  moreLikeThisSection: moreLikeThisSection,
+                return MoviesStyle(
+                  movies: moreLikeThisSection,
                   index: index,
                 );
               },

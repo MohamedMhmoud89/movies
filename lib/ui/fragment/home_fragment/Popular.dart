@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movies/api/Api_Manager.dart';
 import 'package:movies/api/model/popular_response/Movies_Response.dart';
-import 'package:movies/ui/movies_detials_screen/Movies_Details_Screen.dart';
-import 'package:movies/ui/widget/top%20_side_section/Top_Side_Section.dart';
+import 'package:movies/ui/screen/movies_detials_screen/Movies_Details_Screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:movies/ui/widget/top_side_movies_widget/Top_Side_Movies_Style.dart';
 
 class Popular extends StatelessWidget {
   @override
@@ -53,7 +53,7 @@ class Popular extends StatelessWidget {
                           ),
                         );
                       },
-                      child: TopSideSection(movies: item),
+                      child: TopSideMoviesWidget(movies: item),
                     ),
                   );
                 }).toList(),

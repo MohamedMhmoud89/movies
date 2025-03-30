@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/api/Api_Manager.dart';
-import 'package:movies/api/model/movies_details_response/movies_details_response.dart';
+import 'package:movies/api/model/movies_details_response/MoviesDetailsResponse.dart';
 import 'package:movies/ui/widget/movies_details_widget/Movies_Details_Widget.dart';
 
 class GetMoviesDetails extends StatelessWidget {

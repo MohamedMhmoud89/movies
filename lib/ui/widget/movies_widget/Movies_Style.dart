@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies/api/model/popular_response/Movies.dart';
-import 'package:movies/ui/movies_detials_screen/Movies_Details_Screen.dart';
+import 'package:movies/api/model/Movies.dart';
+import 'package:movies/ui/screen/movies_detials_screen/Movies_Details_Screen.dart';
 
 class MoviesStyle extends StatelessWidget {
   List<Movies> movies;
@@ -23,7 +23,12 @@ class MoviesStyle extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),
         child: Image.network(
-          "https://image.tmdb.org/t/p/w500${movies[index].posterPath}" ?? "",
+          width: 96.87360382080078,
+          height: 127.73600006103516,
+          fit: BoxFit.fill,
+          movies[index].posterPath == null
+              ? "https://st4.depositphotos.com/14953852/24787/v/450/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg"
+              : "https://image.tmdb.org/t/p/w500/${movies[index].posterPath}",
         ),
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies/ui/home/Home_Screen.dart';
+import 'package:movies/ui/screen/home/Home_Screen.dart';
 
 class SplashScreen extends StatelessWidget {
   static const String routeName = 'splash_Screen';
