@@ -15,10 +15,13 @@ class ApiManager {
 
   static Future<Movies_Response> getMovies(String state) async {
     var url = Uri.https(baseUrl, '3/movie/$state');
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
     var jsonString = response.body;
     var json = jsonDecode(jsonString);
     var moviesResponse = Movies_Response.fromJson(json);
@@ -27,10 +30,13 @@ class ApiManager {
 
   static Future<MoviesDetailsResponse> getMoviesDetails(int movieId) async {
     var url = Uri.https(baseUrl, '3/movie/$movieId');
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
     var jsonString = response.body;
     var json = jsonDecode(jsonString);
     var moviesDetailsResponse = MoviesDetailsResponse.fromJson(json);
@@ -38,27 +44,33 @@ class ApiManager {
   }
 
   static Future<MoreLikeThisSectionResponse> getLikeMoreMovies(
-      int movieId) async {
+    int movieId,
+  ) async {
     var url = Uri.https(baseUrl, '3/movie/$movieId/similar');
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
     var jsonString = response.body;
     var json = jsonDecode(jsonString);
     var moreLikeThisSectionResponse = MoreLikeThisSectionResponse.fromJson(
-        json);
+      json,
+    );
     return moreLikeThisSectionResponse;
   }
 
   static Future<SearchMoviesResponse> searchMovies(String query) async {
-    var url = Uri.https(baseUrl, '3/search/movie', {
-      'query': query
-    });
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
+    var url = Uri.https(baseUrl, '3/search/movie', {'query': query});
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
     var jsonString = response.body;
     print(jsonString);
     var json = jsonDecode(jsonString);
@@ -68,10 +80,13 @@ class ApiManager {
 
   static Future<BrowseCategoryResponse> getCategoryMovies() async {
     var url = Uri.https(baseUrl, '3/genre/movie/list');
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
     var jsonString = response.body;
     var json = jsonDecode(jsonString);
     var browseCategoryResponse = BrowseCategoryResponse.fromJson(json);
@@ -79,17 +94,17 @@ class ApiManager {
   }
 
   static Future<FilterMoviesResponse> getMoviesByGenres(String genresId) async {
-    var url = Uri.https(baseUrl, '3/discover/movie', {
-      "with_genres": genresId
-    });
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
+    var url = Uri.https(baseUrl, '3/discover/movie', {"with_genres": genresId});
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
     var jsonString = response.body;
     var json = jsonDecode(jsonString);
     var filterMoviesResponse = FilterMoviesResponse.fromJson(json);
     return filterMoviesResponse;
   }
-
 }

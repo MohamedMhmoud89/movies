@@ -13,12 +13,15 @@ class MoviesStyle extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) {
+          MaterialPageRoute(
+            builder: (context) {
               return MoviesDetailsScreen(
                 movieId: movies[index].id,
                 title: movies[index].title,
               );
-            },));
+            },
+          ),
+        );
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),

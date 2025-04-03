@@ -14,10 +14,7 @@ class _SearchFragmentState extends State<SearchFragment> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery
-        .of(context)
-        .size
-        .height;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -25,36 +22,34 @@ class _SearchFragmentState extends State<SearchFragment> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-              padding: EdgeInsets.only(left: 20),
-              margin: EdgeInsets.symmetric(horizontal: width * 0.05),
-              decoration: BoxDecoration(
-                  color: Color(0xff514F4F),
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all(color: Color(0x9dffffff), width: 2)),
-              child: TextField(
-                controller: searchController,
-                cursorColor: Colors.white,
-                autocorrect: true,
-                style: TextStyle(
-                    color: Colors.white
+            padding: EdgeInsets.only(left: 20),
+            margin: EdgeInsets.symmetric(horizontal: width * 0.05),
+            decoration: BoxDecoration(
+              color: Color(0xff514F4F),
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(color: Color(0x9dffffff), width: 2),
+            ),
+            child: TextField(
+              controller: searchController,
+              cursorColor: Colors.white,
+              autocorrect: true,
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(top: height * 0.015),
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {});
+                  },
+                  icon: Icon(Icons.search_rounded, color: Colors.white),
                 ),
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.only(top: height * 0.015),
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                  suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {});
-                      },
-                      icon: Icon(
-                        Icons.search_rounded,
-                        color: Colors.white,
-                      )),
-                ),
-              )),
+              ),
+            ),
+          ),
           FutureBuilder(
             future: ApiManager.searchMovies(searchController.text),
             builder: (context, snapshot) {
@@ -77,12 +72,14 @@ class _SearchFragmentState extends State<SearchFragment> {
                     spacing: 15,
                     children: [
                       Image.asset(
-                          'assets/images/Icon material-local-movies.png'),
-                      Text('No movies found', style: GoogleFonts.inter(
-                          textStyle: TextStyle(
-                              color: Colors.white
-                          )
-                      ),)
+                        'assets/images/Icon material-local-movies.png',
+                      ),
+                      Text(
+                        'No movies found',
+                        style: GoogleFonts.inter(
+                          textStyle: TextStyle(color: Colors.white),
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -101,13 +98,17 @@ class _SearchFragmentState extends State<SearchFragment> {
                     },
                     itemBuilder: (context, index) {
                       return SizedBox(
-                          child: FilterScreenWidget(
-                            movies: snapshot.data?.results ?? [],
-                            index: index,));
-                    },),
+                        child: FilterScreenWidget(
+                          movies: snapshot.data?.results ?? [],
+                          index: index,
+                        ),
+                      );
+                    },
+                  ),
                 );
               }
-            },),
+            },
+          ),
         ],
       ),
     );

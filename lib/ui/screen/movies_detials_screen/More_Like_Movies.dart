@@ -17,25 +17,22 @@ class MoreLikeMovies extends StatelessWidget {
           return Center(
             child: CircularProgressIndicator(color: Color(0xffFFBB3B)),
           );
-        }
-        else if (snapshot.hasError) {
+        } else if (snapshot.hasError) {
           return Center(
             child: Text(
               ' Error: ${snapshot.error}',
               style: TextStyle(color: Colors.white),
             ),
           ); // في حالة حدوث خطأ
-        }
-        else if (!snapshot.hasData) {
+        } else if (!snapshot.hasData) {
           return Center(child: Text('لا توجد بيانات متاحة'));
-        }
-        else if (snapshot.data!.results!.isEmpty) {
+        } else if (snapshot.data!.results!.isEmpty) {
           return Container();
-        }
-        else {
+        } else {
           return LikeMoreGroup(
-              groupName: 'More Like This',
-              moreLikeThisSection: snapshot.data!.results ?? []);
+            groupName: 'More Like This',
+            moreLikeThisSection: snapshot.data!.results ?? [],
+          );
         }
       },
     );

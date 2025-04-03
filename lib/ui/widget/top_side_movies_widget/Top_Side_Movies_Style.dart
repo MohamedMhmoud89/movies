@@ -75,7 +75,9 @@ class TopSideMoviesWidget extends StatelessWidget {
                             spacing: 5,
                             children: [
                               Image.asset(
-                                'assets/images/star-2.png', width: 10,),
+                                'assets/images/star-2.png',
+                                width: 10,
+                              ),
                               Text(
                                 "${movies.voteAverage}",
                                 style: GoogleFonts.inter(
@@ -87,7 +89,7 @@ class TopSideMoviesWidget extends StatelessWidget {
                                 ),
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ],

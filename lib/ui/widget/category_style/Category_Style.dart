@@ -13,10 +13,14 @@ class CategoryStyle extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) {
+          MaterialPageRoute(
+            builder: (context) {
               return FilterScreen(
-                genresId: "${genre[index].id}", genresName: genre[index].name,);
-            },)
+                genresId: "${genre[index].id}",
+                genresName: genre[index].name,
+              );
+            },
+          ),
         );
       },
       child: Container(

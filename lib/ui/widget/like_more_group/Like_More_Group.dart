@@ -37,10 +37,7 @@ class LikeMoreGroup extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: moreLikeThisSection.length,
               itemBuilder: (context, index) {
-                return MoviesStyle(
-                  movies: moreLikeThisSection,
-                  index: index,
-                );
+                return MoviesStyle(movies: moreLikeThisSection, index: index);
               },
             ),
           ),

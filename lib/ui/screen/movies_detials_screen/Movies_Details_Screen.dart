@@ -13,19 +13,14 @@ class MoviesDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          title ?? "",
-        ),
-      ),
+      appBar: AppBar(centerTitle: true, title: Text(title ?? "")),
       body: SingleChildScrollView(
         child: Column(
           spacing: 20,
           children: [
             GetMoviesDetails(movieId: movieId ?? 1),
-            MoreLikeMovies(movieId: movieId ?? 1,),
-            SizedBox(height: 20,)
+            MoreLikeMovies(movieId: movieId ?? 1),
+            SizedBox(height: 20),
           ],
         ),
       ),

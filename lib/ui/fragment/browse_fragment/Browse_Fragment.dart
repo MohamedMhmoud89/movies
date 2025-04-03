@@ -9,14 +9,8 @@ class BrowseFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery
-        .of(context)
-        .size
-        .height;
-    var width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -56,17 +50,22 @@ class BrowseFragment extends StatelessWidget {
                     child: GridView.builder(
                       itemCount: snapshot.data?.genres.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          mainAxisExtent: width * 0.25,
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 20,
-                          crossAxisSpacing: 25),
+                        mainAxisExtent: width * 0.25,
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 20,
+                        crossAxisSpacing: 25,
+                      ),
                       itemBuilder: (context, index) {
                         return CategoryStyle(
-                            genre: snapshot.data!.genres, index: index);
-                      },),
+                          genre: snapshot.data!.genres,
+                          index: index,
+                        );
+                      },
+                    ),
                   );
                 }
-              },)
+              },
+            ),
           ],
         ),
       ),

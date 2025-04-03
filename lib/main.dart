@@ -13,12 +13,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       theme: ThemeData(
         appBarTheme: AppBarTheme(
-          iconTheme: IconThemeData(
-              color: Colors.white
-          ),
+          iconTheme: IconThemeData(color: Colors.white),
           centerTitle: true,
           titleTextStyle: GoogleFonts.inter(
             textStyle: TextStyle(
@@ -44,7 +41,7 @@ class MyApp extends StatelessWidget {
         SplashScreen.routeName: (_) => SplashScreen(),
         HomeScreen.routeName: (_) => HomeScreen(),
         MoviesDetailsScreen.routeName: (_) => MoviesDetailsScreen(),
-        FilterScreen.routeName: (_) => FilterScreen()
+        FilterScreen.routeName: (_) => FilterScreen(),
       },
     );
   }
