@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movies/api/model/Movies.dart';
+import 'package:movies/db/Movies_Cloud_Store_Dao.dart';
+import 'package:movies/db/model/Movies_Cloud_Store.dart';
 import 'package:movies/ui/screen/movies_detials_screen/Movies_Details_Screen.dart';
 
 class FilterScreenWidget extends StatefulWidget {
-  List<Movies> movies;
+  List<MoviesCloudStore> movies;
   int index;
 
   FilterScreenWidget({required this.movies, required this.index});
@@ -14,8 +16,6 @@ class FilterScreenWidget extends StatefulWidget {
 }
 
 class _FilterScreenWidgetState extends State<FilterScreenWidget> {
-  bool isAdd = false;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -24,7 +24,7 @@ class _FilterScreenWidgetState extends State<FilterScreenWidget> {
           MaterialPageRoute(
             builder: (context) {
               return MoviesDetailsScreen(
-                title: widget.movies[widget.index].title,
+                title: widget.movies[widget.index].name,
                 movieId: widget.movies[widget.index].id,
               );
             },
@@ -42,10 +42,9 @@ class _FilterScreenWidgetState extends State<FilterScreenWidget> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
-                    widget.movies[widget.index].backdropPath == null
+                    widget.movies[widget.index].imgPath == null
                         ? "https://st4.depositphotos.com/14953852/24787/v/450/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg"
-                        : 'https://image.tmdb.org/t/p/w500/${widget
-                        .movies[widget.index].backdropPath}',
+                        : 'https://image.tmdb.org/t/p/w500/${widget.movies[widget.index].imgPath}',
                     width: 140,
                     height: 89,
                     fit: BoxFit.fill,
@@ -53,19 +52,21 @@ class _FilterScreenWidgetState extends State<FilterScreenWidget> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    isAdd ? isAdd = false : isAdd = true;
+                    MoviesCloudStoreDao.removeTask(
+                      widget.movies![widget.index].id ?? 0,
+                    );
                     setState(() {});
                   },
                   child: Container(
                     width: 27,
                     height: 36,
                     decoration: BoxDecoration(
-                      color: isAdd ? Color(0xffF7B539) : Color(0x98514f4f),
+                      color: Color(0xffF7B539),
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8.0)),
+                        topLeft: Radius.circular(8.0),
+                      ),
                     ),
-                    child: Icon(
-                      isAdd ? Icons.check : Icons.add, color: Colors.white,),
+                    child: Icon(Icons.check, color: Colors.white),
                   ),
                 ),
               ],
@@ -77,7 +78,7 @@ class _FilterScreenWidgetState extends State<FilterScreenWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    widget.movies[widget.index].title ?? "",
+                    widget.movies[widget.index].name ?? "",
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         fontSize: 15,
@@ -90,7 +91,7 @@ class _FilterScreenWidgetState extends State<FilterScreenWidget> {
                     spacing: 15,
                     children: [
                       Text(
-                        '${widget.movies[widget.index].releaseDate}',
+                        '${widget.movies[widget.index].date}',
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             fontSize: 13,
@@ -104,7 +105,7 @@ class _FilterScreenWidgetState extends State<FilterScreenWidget> {
                         children: [
                           Image.asset('assets/images/star-2.png', width: 10),
                           Text(
-                            '${widget.movies[widget.index].voteAverage}',
+                            '${widget.movies[widget.index].rate}',
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 fontSize: 13,
