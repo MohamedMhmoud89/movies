@@ -4,8 +4,14 @@ import 'package:movies/ui/screen/filter_screen/Filter_Screen.dart';
 import 'package:movies/ui/screen/home/Home_Screen.dart';
 import 'package:movies/ui/screen/movies_detials_screen/Movies_Details_Screen.dart';
 import 'package:movies/ui/screen/splash/Splash_Screen.dart';
+import 'package:movies/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
@@ -15,6 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         appBarTheme: AppBarTheme(
+          surfaceTintColor: Colors.transparent,
           iconTheme: IconThemeData(color: Colors.white),
           centerTitle: true,
           titleTextStyle: GoogleFonts.inter(

@@ -51,9 +51,9 @@ class BrowseFragment extends StatelessWidget {
                       itemCount: snapshot.data?.genres.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         mainAxisExtent: width * 0.25,
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 20,
-                        crossAxisSpacing: 25,
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 8,
+                        crossAxisSpacing: 8,
                       ),
                       itemBuilder: (context, index) {
                         return CategoryStyle(

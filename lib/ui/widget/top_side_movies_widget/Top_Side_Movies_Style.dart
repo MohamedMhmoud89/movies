@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movies/api/model/Movies.dart';
+import 'package:movies/db/Movies_Cloud_Store_Dao.dart';
+import 'package:movies/db/model/Movies_Cloud_Store.dart';
+import 'package:movies/utils/Dialog_Utils.dart';
 
-class TopSideMoviesWidget extends StatelessWidget {
+class TopSideMoviesWidget extends StatefulWidget {
   Movies movies;
 
   TopSideMoviesWidget({required this.movies});
+
+  @override
+  State<TopSideMoviesWidget> createState() => _TopSideMoviesWidgetState();
+}
+
+class _TopSideMoviesWidgetState extends State<TopSideMoviesWidget> {
+  bool isAdd = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +33,8 @@ class TopSideMoviesWidget extends StatelessWidget {
               image: DecorationImage(
                 fit: BoxFit.fill,
                 image: NetworkImage(
-                  "https://image.tmdb.org/t/p/w500${movies.backdropPath}" ?? "",
+                  "https://image.tmdb.org/t/p/w500${widget.movies
+                      .backdropPath}" ?? "",
                 ),
               ),
             ),
@@ -34,13 +45,40 @@ class TopSideMoviesWidget extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Image.network(
-                    "https://image.tmdb.org/t/p/w500${movies.posterPath}" ?? "",
-                    height: 199,
-                    width: 129,
-                  ),
+                Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Image.network(
+                        "https://image.tmdb.org/t/p/w500${widget.movies
+                            .posterPath}" ?? "",
+                        height: 199,
+                        width: 129,
+                      ),
+                    ),
+                    Positioned(
+                      top: height * 0.003,
+                      child: GestureDetector(
+                        onTap: () {
+                          addMovies();
+                          isAdd ? isAdd = false : isAdd = true;
+                          setState(() {});
+                        },
+                        child: Container(
+                          width: 27,
+                          height: 36,
+                          decoration: BoxDecoration(
+                            color: isAdd ? Color(0xffF7B539) : Color(
+                                0x98514f4f),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.0)),
+                          ),
+                          child: Icon(isAdd ? Icons.check : Icons.add,
+                            color: Colors.white,),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 14, bottom: 19),
@@ -49,7 +87,7 @@ class TopSideMoviesWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        movies.originalTitle ?? "",
+                        widget.movies.originalTitle ?? "",
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: Colors.white,
@@ -62,7 +100,7 @@ class TopSideMoviesWidget extends StatelessWidget {
                         spacing: 10,
                         children: [
                           Text(
-                            "${movies.releaseDate}",
+                            "${widget.movies.releaseDate}",
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: Color(0xffB5B4B4),
@@ -79,7 +117,7 @@ class TopSideMoviesWidget extends StatelessWidget {
                                 width: 10,
                               ),
                               Text(
-                                "${movies.voteAverage}",
+                                "${widget.movies.voteAverage}",
                                 style: GoogleFonts.inter(
                                   textStyle: TextStyle(
                                     color: Color(0xffB5B4B4),
@@ -101,5 +139,18 @@ class TopSideMoviesWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void addMovies() async {
+    DialogUtils.showLoadingDialog(context, "Loading....");
+    var myMovies = MoviesCloudStore(
+        rate: widget.movies.voteAverage,
+        name: widget.movies.title,
+        imgPath: widget.movies.backdropPath,
+        id: widget.movies.id,
+        date: widget.movies.releaseDate
+    );
+    await MoviesCloudStoreDao.addMovies(myMovies);
+    DialogUtils.hideDialog(context);
   }
 }
