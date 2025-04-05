@@ -16,11 +16,21 @@ class TopSideMoviesWidget extends StatefulWidget {
 
 class _TopSideMoviesWidgetState extends State<TopSideMoviesWidget> {
   bool isAdd = false;
+  List<MoviesCloudStore> watchList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    watchListMovies();
+  }
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+    final currentMovie = widget.movies;
+    // Check if current movie is in watchList
+    isAdd = watchList.any((m) => m.id == currentMovie.id);
     return Container(
       height: 289,
       child: Stack(
@@ -60,9 +70,11 @@ class _TopSideMoviesWidgetState extends State<TopSideMoviesWidget> {
                       top: height * 0.003,
                       child: GestureDetector(
                         onTap: () {
-                          addMovies();
-                          isAdd ? isAdd = false : isAdd = true;
-                          setState(() {});
+                          isAdd ? removeMovie() : addMovies();
+                          setState(() {
+                            watchListMovies();
+                            isAdd = !isAdd;
+                          });
                         },
                         child: Container(
                           width: 27,
@@ -142,7 +154,6 @@ class _TopSideMoviesWidgetState extends State<TopSideMoviesWidget> {
   }
 
   void addMovies() async {
-    DialogUtils.showLoadingDialog(context, "Loading....");
     var myMovies = MoviesCloudStore(
         rate: widget.movies.voteAverage,
         name: widget.movies.title,
@@ -151,6 +162,14 @@ class _TopSideMoviesWidgetState extends State<TopSideMoviesWidget> {
         date: widget.movies.releaseDate
     );
     await MoviesCloudStoreDao.addMovies(myMovies);
-    DialogUtils.hideDialog(context);
+  }
+
+  void removeMovie() {
+    MoviesCloudStoreDao.removeTask(widget.movies.id ?? 0);
+  }
+
+  void watchListMovies() async {
+    watchList = await MoviesCloudStoreDao.getAllWatchListMovies();
+    setState(() {});
   }
 }
