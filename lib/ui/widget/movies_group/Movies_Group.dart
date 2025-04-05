@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movies/api/model/popular_response/Movies.dart';
-import 'package:movies/ui/widget/movies_style/Movies_Style.dart';
+import 'package:movies/api/model/Movies.dart';
+import 'package:movies/ui/widget/movies_widget/Movies_Style.dart';
 
 class MoviesGroup extends StatelessWidget {
   String groupName;

@@ -1,4 +1,4 @@
-import 'package:movies/api/model/popular_response/Movies.dart';
+import 'package:movies/api/model/Movies.dart';
 
 class Movies_Response {
   int? page;

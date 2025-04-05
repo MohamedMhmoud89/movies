@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:movies/api/model/browse_category_response/browse_category_response.dart';
+import 'package:movies/api/model/filter_response/FilterMoviesResponse.dart';
 import 'package:movies/api/model/more_like_this_section/MoreLikeThisSectionResponse.dart';
-import 'package:movies/api/model/movies_details_response/movies_details_response.dart';
+import 'package:movies/api/model/movies_details_response/MoviesDetailsResponse.dart';
 import 'package:movies/api/model/popular_response/Movies_Response.dart';
 import 'package:movies/api/model/search_movies_response/SearchMoviesResponse.dart';
 
@@ -13,10 +15,13 @@ class ApiManager {
 
   static Future<Movies_Response> getMovies(String state) async {
     var url = Uri.https(baseUrl, '3/movie/$state');
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
     var jsonString = response.body;
     var json = jsonDecode(jsonString);
     var moviesResponse = Movies_Response.fromJson(json);
@@ -25,11 +30,13 @@ class ApiManager {
 
   static Future<MoviesDetailsResponse> getMoviesDetails(int movieId) async {
     var url = Uri.https(baseUrl, '3/movie/$movieId');
-    print(movieId);
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
     var jsonString = response.body;
     var json = jsonDecode(jsonString);
     var moviesDetailsResponse = MoviesDetailsResponse.fromJson(json);
@@ -37,30 +44,67 @@ class ApiManager {
   }
 
   static Future<MoreLikeThisSectionResponse> getLikeMoreMovies(
-      int movieId) async {
+    int movieId,
+  ) async {
     var url = Uri.https(baseUrl, '3/movie/$movieId/similar');
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
     var jsonString = response.body;
     var json = jsonDecode(jsonString);
     var moreLikeThisSectionResponse = MoreLikeThisSectionResponse.fromJson(
-        json);
+      json,
+    );
     return moreLikeThisSectionResponse;
   }
 
   static Future<SearchMoviesResponse> searchMovies(String query) async {
-    var url = Uri.https(baseUrl, '3/movie/search/movie', {
-      'query': "l"
-    });
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
+    var url = Uri.https(baseUrl, '3/search/movie', {'query': query});
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
     var jsonString = response.body;
+    print(jsonString);
     var json = jsonDecode(jsonString);
     var searchMoviesResponse = SearchMoviesResponse.fromJson(json);
     return searchMoviesResponse;
+  }
+
+  static Future<BrowseCategoryResponse> getCategoryMovies() async {
+    var url = Uri.https(baseUrl, '3/genre/movie/list');
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    var jsonString = response.body;
+    var json = jsonDecode(jsonString);
+    var browseCategoryResponse = BrowseCategoryResponse.fromJson(json);
+    return browseCategoryResponse;
+  }
+
+  static Future<FilterMoviesResponse> getMoviesByGenres(String genresId) async {
+    var url = Uri.https(baseUrl, '3/discover/movie', {"with_genres": genresId});
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    var jsonString = response.body;
+    var json = jsonDecode(jsonString);
+    var filterMoviesResponse = FilterMoviesResponse.fromJson(json);
+    return filterMoviesResponse;
   }
 }

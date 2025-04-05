@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movies/api/Api_Manager.dart';
+import 'package:movies/api/model/browse_category_response/browse_category_response.dart';
 import 'package:movies/ui/widget/category_style/Category_Style.dart';
 
 class BrowseFragment extends StatelessWidget {
@@ -7,6 +9,8 @@ class BrowseFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -25,9 +29,42 @@ class BrowseFragment extends StatelessWidget {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [CategoryStyle(), CategoryStyle()],
+            FutureBuilder(
+              future: ApiManager.getCategoryMovies(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(color: Color(0xffFFBB3B)),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text(
+                      'حدث خطأ: ${snapshot.error}',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ); // في حالة حدوث خطأ
+                } else if (!snapshot.hasData) {
+                  return Center(child: Text('لا توجد بيانات متاحة'));
+                } else {
+                  return Expanded(
+                    child: GridView.builder(
+                      itemCount: snapshot.data?.genres.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        mainAxisExtent: width * 0.25,
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 8,
+                        crossAxisSpacing: 8,
+                      ),
+                      itemBuilder: (context, index) {
+                        return CategoryStyle(
+                          genre: snapshot.data!.genres,
+                          index: index,
+                        );
+                      },
+                    ),
+                  );
+                }
+              },
             ),
           ],
         ),

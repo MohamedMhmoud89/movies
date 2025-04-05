@@ -26,6 +26,8 @@ class MoreLikeMovies extends StatelessWidget {
           ); // في حالة حدوث خطأ
         } else if (!snapshot.hasData) {
           return Center(child: Text('لا توجد بيانات متاحة'));
+        } else if (snapshot.data!.results!.isEmpty) {
+          return Container();
         } else {
           return LikeMoreGroup(
             groupName: 'More Like This',

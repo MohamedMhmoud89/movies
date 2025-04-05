@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movies/api/model/movies_details_response/movies_details_response.dart';
+import 'package:movies/api/model/movies_details_response/MoviesDetailsResponse.dart';
 
 class MoviesDetailsWidget extends StatelessWidget {
   MoviesDetailsResponse? moviesDetailsResponse;
@@ -25,7 +25,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                   fit: BoxFit.fill,
                   image: NetworkImage(
                     moviesDetailsResponse?.backdropPath == null
-                        ? "https://as1.ftcdn.net/jpg/04/71/40/86/500_F_471408635_2IPbyYGIgtQ8mjbegDExyeMWqNTLUlD4.jpg"
+                        ? "https://st4.depositphotos.com/14953852/24787/v/450/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg"
                         : "https://image.tmdb.org/t/p/w500/${moviesDetailsResponse?.backdropPath}",
                   ),
                 ),
@@ -47,7 +47,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${moviesDetailsResponse?.releaseDate.year}   ${moviesDetailsResponse!.runtime ~/ 60}h ${moviesDetailsResponse!.runtime % 60}m',
+                    '${moviesDetailsResponse?.releaseDate}   ${moviesDetailsResponse!.runtime! ~/ 60}h ${moviesDetailsResponse!.runtime! % 60}m',
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: Color(0xa3ffffff),
@@ -63,7 +63,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                     children: [
                       Image.network(
                         moviesDetailsResponse?.posterPath == null
-                            ? "https://as1.ftcdn.net/jpg/04/71/40/86/500_F_471408635_2IPbyYGIgtQ8mjbegDExyeMWqNTLUlD4.jpg"
+                            ? "https://st4.depositphotos.com/14953852/24787/v/450/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg"
                             : "https://image.tmdb.org/t/p/w500/${moviesDetailsResponse?.posterPath}",
                         width: 129,
                         height: 199,
@@ -82,7 +82,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                               border: Border.all(color: Color(0xff514F4F)),
                             ),
                             child: Text(
-                              "${moviesDetailsResponse?.genres[0].name}",
+                              "${moviesDetailsResponse!.genres?[0].name}",
                               style: GoogleFonts.inter(
                                 textStyle: TextStyle(
                                   fontSize: 10,
@@ -110,7 +110,7 @@ class MoviesDetailsWidget extends StatelessWidget {
                             children: [
                               Image.asset('assets/images/star-2.png'),
                               Text(
-                                "${moviesDetailsResponse?.voteAverage ?? ""}",
+                                "${moviesDetailsResponse?.voteAverage}",
                                 style: GoogleFonts.inter(
                                   textStyle: TextStyle(
                                     color: Colors.white,
