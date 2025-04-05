@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movies/api/model/Movies.dart';
+import 'package:movies/db/Movies_Cloud_Store_Dao.dart';
+import 'package:movies/db/model/Movies_Cloud_Store.dart';
 import 'package:movies/ui/screen/movies_detials_screen/Movies_Details_Screen.dart';
 
 class FilterScreenWidget extends StatefulWidget {
@@ -15,9 +17,19 @@ class FilterScreenWidget extends StatefulWidget {
 
 class _FilterScreenWidgetState extends State<FilterScreenWidget> {
   bool isAdd = false;
+  List<MoviesCloudStore> watchList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    watchListMovies();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final currentMovie = widget.movies[widget.index];
+    // Check if current movie is in watchList
+    isAdd = watchList.any((m) => m.id == currentMovie.id);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
@@ -53,8 +65,11 @@ class _FilterScreenWidgetState extends State<FilterScreenWidget> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    isAdd ? isAdd = false : isAdd = true;
-                    setState(() {});
+                    isAdd ? removeMovie() : addMovies();
+                    setState(() {
+                      watchListMovies();
+                      isAdd = !isAdd;
+                    });
                   },
                   child: Container(
                     width: 27,
@@ -124,5 +139,25 @@ class _FilterScreenWidgetState extends State<FilterScreenWidget> {
         ),
       ),
     );
+  }
+
+  void addMovies() async {
+    var myMovies = MoviesCloudStore(
+        rate: widget.movies[widget.index].voteAverage,
+        name: widget.movies[widget.index].title,
+        imgPath: widget.movies[widget.index].backdropPath,
+        id: widget.movies[widget.index].id,
+        date: widget.movies[widget.index].releaseDate
+    );
+    await MoviesCloudStoreDao.addMovies(myMovies);
+  }
+
+  void removeMovie() {
+    MoviesCloudStoreDao.removeTask(widget.movies[widget.index].id ?? 0);
+  }
+
+  void watchListMovies() async {
+    watchList = await MoviesCloudStoreDao.getAllWatchListMovies();
+    setState(() {});
   }
 }
