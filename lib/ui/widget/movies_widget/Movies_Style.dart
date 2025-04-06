@@ -53,8 +53,7 @@ class _MoviesStyleState extends State<MoviesStyle> {
               fit: BoxFit.fill,
               currentMovie.posterPath == null
                   ? "https://st4.depositphotos.com/14953852/24787/v/450/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg"
-                  : "https://image.tmdb.org/t/p/w500/${currentMovie
-                  .posterPath}",
+                  : "https://image.tmdb.org/t/p/w500/${currentMovie.posterPath}",
             ),
           ),
           GestureDetector(
@@ -70,7 +69,10 @@ class _MoviesStyleState extends State<MoviesStyle> {
               height: 36,
               decoration: BoxDecoration(
                 color: isAdd ? Color(0xffF7B539) : Color(0x98514f4f),
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(4)),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(4),
+                  topRight: Radius.circular(4),
+                ),
               ),
               child: Icon(isAdd ? Icons.check : Icons.add, color: Colors.white),
             ),
@@ -82,11 +84,11 @@ class _MoviesStyleState extends State<MoviesStyle> {
 
   void addMovies() async {
     var myMovies = MoviesCloudStore(
-        rate: widget.movies[widget.index].voteAverage,
-        name: widget.movies[widget.index].title,
-        imgPath: widget.movies[widget.index].backdropPath,
-        id: widget.movies[widget.index].id,
-        date: widget.movies[widget.index].releaseDate
+      rate: widget.movies[widget.index].voteAverage,
+      name: widget.movies[widget.index].title,
+      imgPath: widget.movies[widget.index].backdropPath,
+      id: widget.movies[widget.index].id,
+      date: widget.movies[widget.index].releaseDate,
     );
     await MoviesCloudStoreDao.addMovies(myMovies);
   }
@@ -99,5 +101,4 @@ class _MoviesStyleState extends State<MoviesStyle> {
     watchList = await MoviesCloudStoreDao.getAllWatchListMovies();
     setState(() {});
   }
-
 }

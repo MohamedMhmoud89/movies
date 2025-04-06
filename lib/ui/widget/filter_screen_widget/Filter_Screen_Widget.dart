@@ -52,12 +52,11 @@ class _FilterScreenWidgetState extends State<FilterScreenWidget> {
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(4),
                   child: Image.network(
                     widget.movies[widget.index].backdropPath == null
                         ? "https://st4.depositphotos.com/14953852/24787/v/450/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg"
-                        : 'https://image.tmdb.org/t/p/w500/${widget
-                        .movies[widget.index].backdropPath}',
+                        : 'https://image.tmdb.org/t/p/w500/${widget.movies[widget.index].backdropPath}',
                     width: 140,
                     height: 89,
                     fit: BoxFit.fill,
@@ -77,10 +76,14 @@ class _FilterScreenWidgetState extends State<FilterScreenWidget> {
                     decoration: BoxDecoration(
                       color: isAdd ? Color(0xffF7B539) : Color(0x98514f4f),
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8.0)),
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0),
+                      ),
                     ),
                     child: Icon(
-                      isAdd ? Icons.check : Icons.add, color: Colors.white,),
+                      isAdd ? Icons.check : Icons.add,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
@@ -143,11 +146,11 @@ class _FilterScreenWidgetState extends State<FilterScreenWidget> {
 
   void addMovies() async {
     var myMovies = MoviesCloudStore(
-        rate: widget.movies[widget.index].voteAverage,
-        name: widget.movies[widget.index].title,
-        imgPath: widget.movies[widget.index].backdropPath,
-        id: widget.movies[widget.index].id,
-        date: widget.movies[widget.index].releaseDate
+      rate: widget.movies[widget.index].voteAverage,
+      name: widget.movies[widget.index].title,
+      imgPath: widget.movies[widget.index].backdropPath,
+      id: widget.movies[widget.index].id,
+      date: widget.movies[widget.index].releaseDate,
     );
     await MoviesCloudStoreDao.addMovies(myMovies);
   }

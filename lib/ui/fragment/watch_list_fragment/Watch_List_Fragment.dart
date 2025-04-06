@@ -29,9 +29,7 @@ class WatchListFragment extends StatelessWidget {
               stream: MoviesCloudStoreDao.listenForTasks(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return Center(child: CircularProgressIndicator());
                 }
                 if (snapshot.hasError) {
                   return Center(
@@ -39,7 +37,9 @@ class WatchListFragment extends StatelessWidget {
                       children: [
                         Text("SomeThing went wrong. please try again"),
                         IconButton(
-                            onPressed: () {}, icon: Icon(Icons.refresh_rounded))
+                          onPressed: () {},
+                          icon: Icon(Icons.refresh_rounded),
+                        ),
                       ],
                     ),
                   );
@@ -47,16 +47,14 @@ class WatchListFragment extends StatelessWidget {
                 var moviesList = snapshot.data;
                 return Expanded(
                   child: ListView.separated(
-                      itemBuilder: (context, index) =>
-                          FilterScreenWidget(
-                            movies: moviesList ?? [],
-                            index: index,
-                          ),
-                      separatorBuilder: (context, index) =>
-                          SizedBox(
-                            height: 20,
-                          ),
-                      itemCount: moviesList?.length ?? 0),
+                    itemBuilder:
+                        (context, index) => FilterScreenWidget(
+                          movies: moviesList ?? [],
+                          index: index,
+                        ),
+                    separatorBuilder: (context, index) => SizedBox(height: 20),
+                    itemCount: moviesList?.length ?? 0,
+                  ),
                 );
               },
             ),

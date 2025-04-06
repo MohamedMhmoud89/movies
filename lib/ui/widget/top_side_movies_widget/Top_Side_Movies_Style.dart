@@ -43,8 +43,8 @@ class _TopSideMoviesWidgetState extends State<TopSideMoviesWidget> {
               image: DecorationImage(
                 fit: BoxFit.fill,
                 image: NetworkImage(
-                  "https://image.tmdb.org/t/p/w500${widget.movies
-                      .backdropPath}" ?? "",
+                  "https://image.tmdb.org/t/p/w500${widget.movies.backdropPath}" ??
+                      "",
                 ),
               ),
             ),
@@ -60,8 +60,8 @@ class _TopSideMoviesWidgetState extends State<TopSideMoviesWidget> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10.0),
                       child: Image.network(
-                        "https://image.tmdb.org/t/p/w500${widget.movies
-                            .posterPath}" ?? "",
+                        "https://image.tmdb.org/t/p/w500${widget.movies.posterPath}" ??
+                            "",
                         height: 199,
                         width: 129,
                       ),
@@ -80,16 +80,20 @@ class _TopSideMoviesWidgetState extends State<TopSideMoviesWidget> {
                           width: 27,
                           height: 36,
                           decoration: BoxDecoration(
-                            color: isAdd ? Color(0xffF7B539) : Color(
-                                0x98514f4f),
+                            color:
+                                isAdd ? Color(0xffF7B539) : Color(0x98514f4f),
                             borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(4.0)),
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4),
+                            ),
                           ),
-                          child: Icon(isAdd ? Icons.check : Icons.add,
-                            color: Colors.white,),
+                          child: Icon(
+                            isAdd ? Icons.check : Icons.add,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
                 Padding(
@@ -155,11 +159,11 @@ class _TopSideMoviesWidgetState extends State<TopSideMoviesWidget> {
 
   void addMovies() async {
     var myMovies = MoviesCloudStore(
-        rate: widget.movies.voteAverage,
-        name: widget.movies.title,
-        imgPath: widget.movies.backdropPath,
-        id: widget.movies.id,
-        date: widget.movies.releaseDate
+      rate: widget.movies.voteAverage,
+      name: widget.movies.title,
+      imgPath: widget.movies.backdropPath,
+      id: widget.movies.id,
+      date: widget.movies.releaseDate,
     );
     await MoviesCloudStoreDao.addMovies(myMovies);
   }

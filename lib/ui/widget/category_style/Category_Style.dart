@@ -27,8 +27,11 @@ class CategoryStyle extends StatelessWidget {
         decoration: BoxDecoration(
           color: Color(0xff343534),
           borderRadius: BorderRadius.circular(4),
-            border: Border.all(
-                color: Color(0xffFFBB3B), style: BorderStyle.solid, width: 1)
+          border: Border.all(
+            color: Color(0xffFFBB3B),
+            style: BorderStyle.solid,
+            width: 1,
+          ),
         ),
         child: Center(
           child: Text(
